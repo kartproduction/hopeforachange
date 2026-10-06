@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+(function(){var t=null;try{t=localStorage.getItem('theme')}catch(e){}
+if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();
+</script>
+<title>HOME | hopeforachange</title>
+<meta name="description" content="Hope For A Change — a photography and graphic design project about changing the world with one click.">
+<meta property="og:title" content="HOPE FOR A CHANGE">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --bg-alt:#f4f1ec; --ink:#222; --muted:#666; --card:#ffffff; --field-line:#bbb; --ok-bg:#e7f3e5; color-scheme:light;
+  --head-bg:#111; --head-ink:#fff; --accent:#c9a15a; --accent-dark:#9c7634;
+  --line:#e2ddd4; --max:1100px; --head-h:74px;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Open Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#141414; --bg-alt:#1c1b19; --ink:#ebe6dc; --muted:#a9a399; --line:#38342d;
+  --card:#222120; --field-line:#585247; --ok-bg:#1f3320; --accent-dark:#dcb978; --head-bg:#0b0b0b;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--head-h)}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.7;font-size:17px;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+a{color:var(--accent-dark)}
+a:hover{color:var(--ink)}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;margin:0 0 .6em}
+section{padding:90px 24px}
+section:nth-of-type(even){background:var(--bg-alt)}
+.wrap{max-width:var(--max);margin:0 auto}
+.section-title{font-size:clamp(2rem,5vw,3rem);text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:1.2em}
+.section-title::after{content:"";display:block;width:70px;height:3px;background:var(--accent);margin:.5em auto 0}
+.btn{display:inline-block;padding:.8em 2em;border:2px solid var(--accent);background:var(--accent);color:#111;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-size:.85rem;cursor:pointer;transition:.25s;font-family:var(--sans)}
+.btn:hover{background:transparent;color:var(--accent-dark)}
+.btn.ghost{background:transparent;color:var(--accent-dark)}
+.btn.ghost:hover{background:var(--accent);color:#111}
+
+/* header */
+header{position:fixed;inset:0 0 auto 0;height:var(--head-h);background:var(--head-bg);color:var(--head-ink);z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,env(safe-area-inset-left));padding-top:env(safe-area-inset-top,0px);transition:box-shadow .3s,background .3s}
+header.scrolled{box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.logo{font-family:var(--serif);font-weight:700;letter-spacing:.14em;line-height:1.05;text-decoration:none;color:#fff;font-size:1.05rem;text-transform:uppercase}
+.logo span{display:block;color:var(--accent)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;align-items:center}
+nav li{position:relative}
+nav a{display:block;padding:.6em .9em;color:#fff;text-decoration:none;font-size:.82rem;letter-spacing:.12em;font-weight:600;text-transform:uppercase;transition:color .2s}
+nav a:hover,nav a.active{color:var(--accent)}
+.has-sub>ul{position:absolute;top:100%;left:0;min-width:160px;background:var(--head-bg);display:none;flex-direction:column;gap:0;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.has-sub:hover>ul,.has-sub:focus-within>ul{display:flex}
+.has-sub>a::after{content:" ▾";font-size:.7em}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;padding:10px}
+.burger span{display:block;height:2px;background:#fff;margin:6px 0;transition:.3s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* theme toggle */
+nav{margin-left:auto}
+.theme-toggle{margin-left:10px;width:44px;height:44px;flex:none;display:grid;place-items:center;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:50%;cursor:pointer;padding:0;transition:background .2s,color .2s,border-color .2s}
+.theme-toggle:hover,.theme-toggle:focus-visible{background:var(--accent);color:#111;border-color:var(--accent)}
+.theme-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .i-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .i-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .i-moon{display:none}
+body,section,.post,.why,.card,form input,form textarea{transition:background-color .3s,color .3s,border-color .3s}
+
+/* hero */
+#home{padding-top:calc(var(--head-h) + 80px);background:linear-gradient(180deg,#1a1a1a 0,#2a2622 100%);color:#fff}
+#home .wrap{max-width:860px;text-align:center}
+#home h2{font-size:clamp(2.2rem,6vw,3.6rem);margin-bottom:.5em}
+#home p{color:#e8e2d6}
+.home-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:60px auto 40px;max-width:var(--max)}
+.card{background:var(--card);color:var(--ink);padding:32px 26px;text-align:center;border-top:4px solid var(--accent);display:flex;flex-direction:column;align-items:center;gap:14px;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.card img{width:96px;height:96px;object-fit:contain}
+.card .btn{margin-top:auto}
+.card blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:1rem}
+.card cite{font-style:normal;font-size:.9rem;color:var(--muted)}
+
+/* gallery */
+.gallery{position:relative;max-width:820px;margin:50px auto 0;background:#000;aspect-ratio:16/10;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.gallery .slide{position:absolute;inset:0;opacity:0;transition:opacity .8s;display:flex;align-items:center;justify-content:center;cursor:zoom-in}
+.gallery .slide.on{opacity:1;z-index:1}
+.gallery .slide img{width:100%;height:100%;object-fit:contain}
+.gallery .zoom{position:absolute;bottom:12px;left:14px;color:#fff;background:rgba(0,0,0,.55);padding:3px 10px;font-size:.75rem;letter-spacing:.08em;z-index:3;text-transform:uppercase;pointer-events:none}
+.gallery .count{position:absolute;bottom:12px;right:14px;color:#fff;background:rgba(0,0,0,.55);padding:3px 10px;font-size:.85rem;z-index:3}
+.gallery button.nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(0,0,0,.5);color:#fff;border:0;width:46px;height:60px;font-size:1.6rem;cursor:pointer;transition:background .2s}
+.gallery button.nav:hover{background:var(--accent);color:#111}
+.gallery .prev{left:0}.gallery .next{right:0}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-height:92vh;max-width:96vw;object-fit:contain}
+.lightbox button{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:2.4rem;cursor:pointer}
+
+/* projects */
+.posts{display:grid;gap:22px;max-width:860px;margin:0 auto}
+.post{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);padding:26px 28px}
+.post h3{font-size:1.4rem;margin-bottom:.2em}
+.meta{color:var(--muted);font-size:.85rem;margin-bottom:.8em}
+.post details summary{cursor:pointer;color:var(--accent-dark);font-weight:700;letter-spacing:.08em;font-size:.82rem;text-transform:uppercase;margin-top:.6em;list-style:none}
+.post details summary::-webkit-details-marker{display:none}
+.post details summary::after{content:" +"}
+.post details[open] summary::after{content:" –"}
+.post details>div{margin-top:1em}
+.post ol{padding-left:1.3em;overflow-wrap:anywhere}
+.tag{display:inline-block;margin:.6em .5em 0 0;padding:.1em .8em;border:1px solid var(--line);border-radius:30px;font-size:.8rem;color:var(--muted);text-decoration:none}
+.aside{max-width:860px;margin:40px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:30px;font-size:.95rem}
+.aside h4{font-size:1.1rem;border-bottom:2px solid var(--accent);padding-bottom:.3em}
+.aside ul{list-style:none;padding:0;margin:0}
+.aside li{padding:.25em 0}
+
+.aside a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
+.aside a:hover,.aside a.on{color:var(--accent-dark);border-bottom-color:var(--accent)}
+.post.hide{display:none}
+.post.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* why hope */
+.lead{text-align:center;max-width:780px;margin:0 auto 50px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.95rem}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.why{background:var(--card);padding:36px 30px 30px;position:relative;border-top:4px solid var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.why .n{position:absolute;top:-24px;left:24px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#111;font-family:var(--serif);font-weight:700;font-size:1.4rem;display:grid;place-items:center}
+.why h3{font-size:1.25rem;text-transform:uppercase;letter-spacing:.05em}
+.closing{max-width:780px;margin:50px auto 0;text-align:center;font-family:var(--serif);font-size:1.2rem;font-style:italic}
+
+/* photo-graphic */
+.banner{height:280px;overflow:hidden;margin:0 auto 50px;max-width:980px}
+.banner img{width:100%;height:100%;object-fit:cover;object-position:50% 64.5%}
+.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 48px}
+.pg h3{font-size:1.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-dark)}
+.courtesy{font-size:.85rem;color:var(--muted)}
+.peace{text-align:center;margin-top:60px}
+.peace img{width:120px;height:120px;margin:0 auto 12px;object-fit:contain}
+.peace-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;text-align:left;margin-top:30px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:5fr 6fr;gap:48px;align-items:center}
+.about-grid img{width:100%;aspect-ratio:660/458;object-fit:cover;object-position:50% 20%;box-shadow:12px 12px 0 var(--accent)}
+.about-project-grid{display:grid;grid-template-columns:5fr 6fr;gap:48px;align-items:start}
+.about-project-grid img{width:100%;aspect-ratio:660/458;object-fit:cover;box-shadow:12px 12px 0 var(--accent);position:sticky;top:calc(var(--head-h) + 20px)}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:900px;margin:0 auto}
+.contact-grid h3{font-size:1.3rem}
+form label{display:block;font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3em}
+form input,form textarea{width:100%;padding:.8em 1em;border:1px solid var(--field-line);background:var(--card);color:var(--ink);font:inherit;margin-bottom:1em;border-radius:0}
+form input:focus,form textarea:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+.ok{display:none;margin-top:1em;padding:.8em 1em;background:var(--ok-bg);border-left:4px solid #3c8c3a;font-weight:600}
+.ok.show{display:block}
+
+/* footer */
+footer{background:var(--head-bg);color:#ddd;padding:60px 24px calc(30px + env(safe-area-inset-bottom,0px));text-align:center}
+footer h2{font-family:var(--serif);color:#fff;letter-spacing:.2em;font-size:1.6rem}
+.foot-cols{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;margin:30px 0}
+.foot-cols h4{color:var(--accent);margin:0 0 .3em;font-size:1rem}
+footer a{color:#fff}
+footer small{display:block;color:#999;margin-top:10px}
+.top{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;background:var(--accent);color:#111;border:0;font-size:1.3rem;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;z-index:40}
+.top.show{opacity:1;pointer-events:auto}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.gallery .slide{transition:none}}
+
+/* responsive */
+@media (max-width:980px){
+  .home-cards{grid-template-columns:1fr;max-width:480px}
+  .about-grid,.about-project-grid,.contact-grid{grid-template-columns:1fr}
+  .about-project-grid img{position:static}
+}
+@media (max-width:860px){
+  .burger{display:block;order:3}
+  .theme-toggle{order:2;margin-left:auto}
+  nav{position:fixed;top:calc(var(--head-h) + env(safe-area-inset-top,0px));left:0;right:0;background:var(--head-bg);max-height:0;overflow:hidden;transition:max-height .4s}
+  nav.open{max-height:80vh;overflow:auto;border-top:1px solid #333}
+  nav ul{flex-direction:column;align-items:stretch;gap:0;padding:10px 0}
+  nav a{padding:1em 24px}
+  .has-sub>ul{position:static;display:flex;box-shadow:none;padding:0}
+  .has-sub>ul a{padding-left:48px}
+  .has-sub>a::after{content:""}
+  section{padding:64px 18px}
+  .why-grid,.pg-grid,.peace-grid,.aside{grid-template-columns:1fr}
+  .banner{height:180px}
+}
+@media (max-width:480px){
+  body{font-size:16px}
+  .post{padding:20px 18px}
+  .logo{font-size:.9rem}
+}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <a class="logo" href="#home" aria-label="Hope for a Change — home">HOPE FOR <span>A CHANGE</span></a>
+  <button class="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  <nav id="menu" aria-label="Main">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#why-hope">Why Hope</a></li>
+      <li><a href="#photo-graphic">Photo-Graphic</a></li>
+      <li class="has-sub"><a href="#about-me">About Me</a>
+        <ul><li><a href="#contact">Contact</a></li></ul>
+      </li>
+      <li><a href="#about-project">About Project</a></li>
+    </ul>
+  </nav>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle light / dark">
+    <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+</header>
+
+<main>
+
+<!-- HOME -->
+<section id="home">
+  <div class="wrap reveal">
+    <h2>Hope For Change Project</h2>
+    <p>When the world says, “Give up,” Hope whispers, “Try it one more time.” Hello, I am whatever you call me: beard man, funny man, or the man who takes photographs, but I am still a man. Don’t think I am here just to talk. I am here because in 2014 I got the opportunity to touch a camera. From that moment I started playing with the camera, which I still love. This is why I believe that photography is the hope for a change. It is the change that uses one click of a camera to create a new world, rather than modifying the old world with thousands and thousands of bombs, which create refugee lives in the Middle East.</p>
+  </div>
+
+  <div class="home-cards">
+    <article class="card reveal">
+      <img src="images/home-why-hope.png" data-fb="https://static.wixstatic.com/media/84770f_b25341fba0ec4e6591393061cf5cef8e.png" data-fb2="https://static.wixstatic.com/media/84770f_b25341fba0ec4e6591393061cf5cef8e.png/v1/fill/w_105,h_110,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/84770f_b25341fba0ec4e6591393061cf5cef8e.png" alt="Why Hope icon">
+      <h3>WHY HOPE</h3>
+      <blockquote>"Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."</blockquote>
+      <cite>—Albert Einstein</cite>
+      <a class="btn ghost" href="#why-hope">Why Hope</a>
+    </article>
+    <article class="card reveal">
+      <img src="images/home-photographic.png" data-fb="https://static.wixstatic.com/media/84770f_ff41be4acfd7452588a06cf63ef9416d.png" data-fb2="https://static.wixstatic.com/media/84770f_ff41be4acfd7452588a06cf63ef9416d.png/v1/fill/w_105,h_105,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/84770f_ff41be4acfd7452588a06cf63ef9416d.png" alt="Photographic icon">
+      <h3>PHOTOGRAPHIC</h3>
+      <blockquote>“Taking an image, freezing a moment, reveals how rich reality truly is.”</blockquote>
+      <cite>— Anonymous</cite>
+      <a class="btn ghost" href="#photo-graphic">Photographic</a>
+    </article>
+    <article class="card reveal">
+      <img src="images/home-about-project.png" data-fb="https://static.wixstatic.com/media/84770f_015d1b7456f64adf987554bc673876c0.png" data-fb2="https://static.wixstatic.com/media/84770f_015d1b7456f64adf987554bc673876c0.png/v1/fill/w_105,h_105,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/84770f_015d1b7456f64adf987554bc673876c0.png" alt="About project icon">
+      <h3>ABOUT PROJECT</h3>
+      <blockquote>"Photography takes an instant out of time, altering life by holding it still."</blockquote>
+      <cite>— Dorothea Lange<br>This is what this project will do.</cite>
+      <a class="btn" href="#projects">Project Details</a>
+    </article>
+  </div>
+
+  <div class="gallery reveal" id="gallery" aria-roledescription="carousel" aria-label="Photo gallery">
+    <div class="slide on"><img src="images/gallery-1.png" data-fb="https://static.wixstatic.com/media/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png" data-fb2="https://static.wixstatic.com/media/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png/v1/fill/w_650,h_372,al_c,q_85,enc_avif,quality_auto/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png" alt="Gallery photo 1"></div>
+    <div class="slide"><img src="images/gallery-2.jpg" data-fb="https://static.wixstatic.com/media/dee289_41c8944346b44057942a86ddc144e909~mv2.jpg" data-fb2="https://static.wixstatic.com/media/dee289_41c8944346b44057942a86ddc144e909~mv2.jpg/v1/fill/w_570,h_430,al_c,q_80,enc_avif,quality_auto/dee289_41c8944346b44057942a86ddc144e909~mv2.jpg" alt="Gallery photo 2" loading="lazy"></div>
+    <div class="slide"><img src="images/gallery-3.jpg" data-fb="https://static.wixstatic.com/media/dee289_62290e280d5943de8c1da923d312159a~mv2.jpg" data-fb2="https://static.wixstatic.com/media/dee289_62290e280d5943de8c1da923d312159a~mv2.jpg/v1/fill/w_700,h_394,al_c,q_80,enc_avif,quality_auto/dee289_62290e280d5943de8c1da923d312159a~mv2.jpg" alt="Gallery photo 3" loading="lazy"></div>
+    <div class="slide"><img src="images/gallery-1.png" data-fb="https://static.wixstatic.com/media/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png" data-fb2="https://static.wixstatic.com/media/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png/v1/fill/w_650,h_372,al_c,q_85,enc_avif,quality_auto/dee289_992eb48c4a0f4437a7385c738169ec69~mv2.png" alt="Gallery photo 4" loading="lazy"></div>
+    <button class="nav prev" aria-label="Previous">‹</button>
+    <button class="nav next" aria-label="Next">›</button>
+    <span class="zoom">press to zoom</span>
+    <span class="count">1/4</span>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="posts">
+
+      <article class="post reveal" id="post-paper" data-month="2016-11">
+        <h3>Research Paper</h3>
+        <div class="meta">Khada N. Acharya · Nov 2, 2016 · 1 min read</div>
+        <p>My research paper is based on photography and graphic design changing the world. “People Use Photography and Graphic Design as a Weapon...</p>
+        <details><summary>Read full post</summary><div>
+          <p>My research paper is based on photography and graphic design changing the world. The whole paper, “People Use Photography and Graphic Design as a Weapon Against War and Conflict,” is in PDF form. <a href="files/research-paper.pdf" target="_blank" rel="noopener">Click Here</a> to see it. If anyone needs it in Microsoft Word form, please convert it to Microsoft Word. If you don’t know how to convert it, contact me at 802-225-1487 and/or <a href="mailto:khadanacharya@gmail.com">khadanacharya@gmail.com</a>.</p>
+          <a class="tag" href="#projects">#Paper</a>
+        </div></details>
+      </article>
+
+      <article class="post reveal" id="post-speech" data-month="2016-10">
+        <h3>Research Statement of Purpose / Short Speech</h3>
+        <div class="meta">Khada N. Acharya · Oct 8, 2016 · 1 min read</div>
+        <p>Click Here to see the PDF file of the Research Statement of Purpose / Short Speech. Here are the full sources:...</p>
+        <details><summary>Read full post</summary><div>
+          <p><a href="files/research-statement-of-purpose.pdf" target="_blank" rel="noopener">Click Here</a> to see the PDF file of the Research Statement of Purpose / Short Speech.</p>
+          <p>Here are the full sources:</p>
+          <ol>
+            <li>Bernardinai: "Idealios Mokyklos Vizija." Bernardinai.lt. N.p., n.d. Web. 24 Sept. 2016. &lt;<a href="http://www.bernardinai.lt/straipsnis/2016-09-01-idealios-mokyklos-vizija/148304" target="_blank" rel="noopener">http://www.bernardinai.lt/straipsnis/2016-09-01-idealios-mokyklos-vizija/148304</a>&gt;</li>
+            <li>CNN: "Iconic Photos of the Vietnam War." CNN. Cable News Network, n.d. Web. 24 Sept. 2016. &lt;<a href="http://www.cnn.com/2014/06/19/world/gallery/iconic-vietnam-war-photos/" target="_blank" rel="noopener">http://www.cnn.com/2014/06/19/world/gallery/iconic-vietnam-war-photos/</a>&gt;</li>
+            <li>Dailymail: Tonkin, Sam. "16 Pictures That Changed the World: From the Horrors of Starvation in South Sudan to Tiananmen Square - the Heartbreaking Sight of Little Aylan's Lifeless Body Is Just One Photo That Changed History ." Mail Online. Associated Newspapers, 06 Sept. 2015. Web. 24 Sept. 2016. &lt;<a href="http://www.dailymail.co.uk/news/article-3222657/Aylan-s-lifeless-body-powerful-photographs-changed-course-history.html" target="_blank" rel="noopener">http://www.dailymail.co.uk/news/article-3222657/Aylan-s-lifeless-body-powerful-photographs-changed-course-history.html</a>&gt;</li>
+            <li>Photobucket: "Question Man." Photobucket. N.p., n.d. Web. 24 Sept. 2016. &lt;<a href="http://media.photobucket.com/user/Hunted2009/media/Question/QuestionMan2.png.html?filters%5Bterm%5D=question%2Bmark&amp;filters%5Bprimary%5D=images&amp;filters%5Bsecondary%5D=videos&amp;sort=1&amp;o=5" target="_blank" rel="noopener">http://media.photobucket.com/user/Hunted2009/media/Question/QuestionMan2.png.html?filters%5Bterm%5D=question%2Bmark&amp;filters%5Bprimary%5D=images&amp;filters%5Bsecondary%5D=videos&amp;sort=1&amp;o=5</a>&gt; "Flower Gun." Photobucket. N.p., n.d. Web. 24 Sept. 2016. &lt;<a href="http://media.photobucket.com/user/Black_bird87/media/flowerGun.jpg.html?filters%5Bterm%5D=flower%2Bwith%2Bgun&amp;filters%5Bprimary%5D=images&amp;filters%5Bsecondary%5D=videos&amp;sort=1&amp;o=" target="_blank" rel="noopener">http://media.photobucket.com/user/Black_bird87/media/flowerGun.jpg.html?filters%5Bterm%5D=flower%2Bwith%2Bgun&amp;filters%5Bprimary%5D=images&amp;filters%5Bsecondary%5D=videos&amp;sort=1&amp;o=</a>&gt;</li>
+            <li>WikiHow: Baby, Peanut. "Change Your Life." WikiHow. N.p., n.d. Web. 24 Sept. 2016. &lt;<a href="http://www.wikihow.com/Change-Your-Life" target="_blank" rel="noopener">http://www.wikihow.com/Change-Your-Life</a>&gt;</li>
+          </ol>
+          <a class="tag" href="#projects">#Speech</a>
+        </div></details>
+      </article>
+
+      <article class="post reveal" id="post-proposal" data-month="2016-10">
+        <h3>Research Proposal</h3>
+        <div class="meta">Khada N. Acharya · Oct 8, 2016 · 3 min read</div>
+        <p>Research Proposal Intro to Research Methods Sep-14-2016 Title: Why do people use photography and graphic design as a weapon against war?...</p>
+        <details><summary>Read full post</summary><div>
+          <p>Research Proposal<br>Intro to Research Methods<br>Sep-14-2016</p>
+          <p><strong>Title:</strong> Why do people use photography and graphic design as a weapon against war?</p>
+          <p><strong>Topic:</strong> Digital media. It refers to audio, video, and photo content that has been encoded or digitally compressed (Microsoft). Most people use media in various ways, and it focuses on the audience themselves and how they decide to use digital media. An example of this is the question of why people use photography and graphic design as a weapon against war.</p>
+          <p><strong>Background:</strong> Photography is a collection of journalism, nature, portrait, and art photos that help in fighting violence. It gives the photographer the ability to speak out through a one-click device, to visualize the truth, and to help justice win against injustice. Since the invention of photography, it has existed as a medium that helps the human eye tell the truth and the lie apart. An example of this function is the heartbreaking picture of a dead refugee baby on a Turkish beach in September this year. Photography is a form of journalism, known as photojournalism. Photojournalism is the way of creating news articles using mainly photographs. It plays a vital role in society in the fight against violence. One click is all it takes to make a video or a picture that helps people understand what is being done to someone in the news. But photographs look the same unless they get a fine touch in Adobe Photoshop and other design tools. This is why I will go more deeply into how photography and design have changed the world, are changing it, and will keep changing it. I will not only look into photography and design; I will also look at the war and epidemic crime happening now. This is why photography and graphic design are emerging around the world against war.</p>
+          <p><strong>Research Problem:</strong> The research aims to determine why people use photography and graphic design as a weapon against war.</p>
+          <p><strong>Sub-problems:</strong></p>
+          <ol>
+            <li>What makes photography and graphic design different from guns and bombs?</li>
+            <li>Does the information shared in photography and graphic design against war differ from the photographs we usually click?</li>
+            <li>Do people capture war photographs and design them for the same reasons we usually capture photographs, or for different reasons?</li>
+          </ol>
+          <p><strong>Research Question:</strong> The purpose of this study is to determine why people use photography and graphic design as a weapon against war by investigating why people capture and design war photographs, and why we usually capture photographs such as selfies.</p>
+          <p><strong>Aim:</strong> The aim of this pilot study is to determine the reasons why people capture and design war photographs, and why we usually capture photographs, by specifically looking at photographers who take war photographs and regular photographs.</p>
+          <p><strong>Methodology:</strong> This study will be a subjective research study. Subjective research techniques endeavor to find what is thought to be a dynamic reality, concentrating primarily on understanding the specifics of photography and design that are used against war. I will use some photographs and designs as examples of digital media against war. <strong>Significance:</strong> The exponential increase in the use of photographs and design around the world has led to the emergence of research on digital media against war. These studies vary between photographers who take war photos and the role that design plays in photography. These researchers have tried to determine why people take war photos as opposed to war, why people go to war, and why people should use digital media.</p>
+          <a class="tag" href="#projects">#ResearchProposal</a>
+        </div></details>
+      </article>
+
+      <article class="post reveal" id="post-ideas" data-month="2016-10">
+        <h3>Research Ideas</h3>
+        <div class="meta">Khada N. Acharya · Oct 8, 2016 · 1 min read</div>
+        <p>Research Ideas Intro to Research Methods Sep-07-2016 Education I am thinking about doing research on education in refugee camps and poor places....</p>
+        <details><summary>Read full post</summary><div>
+          <p>Research Ideas<br>Intro to Research Methods<br>Sep-07-2016</p>
+          <h4>Education</h4>
+          <p>I am thinking about doing research on education in refugee camps and poor places. It will give me a chance to see the difference between the US education system and the education system I used to have in the refugee camp. When researching education there, religions and their figures will always play a main role. While I was in the Bhutanese refugee camp in Nepal, we were provided an education that was mostly funded by the Christian religion. I am not going to go against religions, because I don’t believe that religion is inferior to education. As I research this more, I will look at education systems in Bhutan, Nepal, and other countries, but mostly I will contrast the different ways I have been educated.</p>
+          <h4>Photography and Design</h4>
+          <p>I always think of photography as an art that will change the world in one click. It is the art that shows reality and what is real. I think photography is the hope for change for everything in this world. I hope that one click of a camera will change the world, rather than hundreds and hundreds of bullets from guns. But that hope of one click is not fulfilled unless the photograph gets a fine touch in Adobe Photoshop and other design tools. This is why I will go more deeply into how photography and design have changed the world, are changing it, and will keep changing it. I will not only look into photography and design; I will also look at war and epidemic crime happening now.</p>
+          <a class="tag" href="#projects">#Education</a><a class="tag" href="#projects">#Photography</a><a class="tag" href="#projects">#Design</a>
+        </div></details>
+      </article>
+    </div>
+
+    <div class="aside reveal">
+      <div>
+        <h4>Featured Posts</h4>
+        <ul>
+          <li><a href="#post-paper" data-post="post-paper">Research Paper</a></li>
+          <li><a href="#post-speech" data-post="post-speech">Research Statement of Purpose / Short Speech</a></li>
+          <li><a href="#post-proposal" data-post="post-proposal">Research Proposal</a></li>
+          <li><a href="#post-ideas" data-post="post-ideas">Research Ideas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Archive</h4>
+        <ul>
+          <li><a href="#projects" data-month-filter="2016-11">November 2016 (1) · 1 post</a></li>
+          <li><a href="#projects" data-month-filter="2016-10">October 2016 (3) · 3 posts</a></li>
+          <li><a href="#projects" data-month-filter="all" id="show-all" hidden>← Show all posts</a></li>
+        </ul>
+        <h4 style="margin-top:1.2em">Search By Tags</h4>
+        <p style="margin:0">No tags yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY HOPE -->
+<section id="why-hope">
+  <div class="wrap">
+    <h2 class="section-title reveal">Why Hope</h2>
+    <p class="lead reveal">The following are the reasons why we hope photography and graphic design will change the world:</p>
+    <div class="why-grid">
+      <article class="why reveal"><div class="n">1</div>
+        <h3>To Make a Difference</h3>
+        <p>We know that everyone hopes to make a difference, but fighting wars and creating chaos does not make the difference we think it will. When faced with making a difference, we are not aware of what the outcome will be. That’s why we need to hope that photography and graphic design will make a difference around the world, not the difference we imagine by fighting, but one that comes from showing the reality of what is going on.</p>
+      </article>
+      <article class="why reveal"><div class="n">2</div>
+        <h3>To Give Strength</h3>
+        <p>As humans, we are taught to have self-confidence, but most of us are confident that we can make a better day by using violence against that one child. When we hope in photography and graphic design, we can find the confidence and strength to face any challenge that comes our way. We can find the confidence and strength to believe that violence will end through photography and graphic design.</p>
+      </article>
+      <article class="why reveal"><div class="n">3</div>
+        <h3>To Bring Happiness</h3>
+        <p>When we try to make a difference by using violence, it does not bring happiness to us. It also does not bring happiness when we win a battle by killing a terrorist. But when someone takes a picture of a child who is affected by war, it gives us a clue about how to help. Then, when we edit those photographs, they help us make sure that the child is out of the danger zone and can live like us. That brings happiness to him or her, and it also brings happiness to us, because that child is safe now.</p>
+      </article>
+      <article class="why reveal"><div class="n">4</div>
+        <h3>To Teach Us Patience</h3>
+        <p>We all encourage one another to solve our own problems. Instead of solving them, we are creating more problems by bombing that one child. In that situation, we realize that we face an impossible or hopeless situation, and we must learn how photography and graphic design teach us to be patient and to have the strength to believe that one day things will be better for that one child. We do not need to be anxious or worried, as we are when we use violence. We can find peace in the ability of photography and graphic design to show us what is real.</p>
+      </article>
+      <article class="why reveal"><div class="n">5</div>
+        <h3>To Create a Better Day</h3>
+        <p>When we bring happiness to that one child, we start bringing happiness to others like him or her. To do that, we do not need to use violence; violence creates bias between people. Photography will show what is happening, and graphic design will predict how we can create a better day, not by bombing but by helping that one child and giving him or her the strength to live and to fight against violence without using violence.</p>
+      </article>
+      <article class="why reveal"><div class="n">6</div>
+        <h3>To Bring Encouragement</h3>
+        <p>We all know the feeling we get at the end when we use violence against an enemy, but that violence wounds many children like that one child. Now think about how photography and graphic design can help those children, like that one child. We can find encouragement and joy amid life’s struggles because we know we will stay alive when we aren’t using violence.</p>
+      </article>
+    </div>
+    <p class="closing reveal">Because of photography and graphic design, we have hope to make a difference, bring happiness, create a better day, give ourselves strength and be patient, for eternity.</p>
+  </div>
+</section>
+
+<!-- PHOTO-GRAPHIC -->
+<section id="photo-graphic">
+  <div class="wrap">
+    <div class="banner reveal"><img src="images/photographic-banner.jpg" data-fb="https://static.wixstatic.com/media/dee289_16a1677ef5fb4db8a691320d6759d284~mv2_d_1325_2048_s_2.jpg" alt="Photo-Graphic banner" loading="lazy"></div>
+    <h2 class="section-title reveal">Photo-Graphic</h2>
+
+    <div class="pg-grid">
+      <div class="pg reveal">
+        <h3>Photography</h3>
+        <p>Photography is an art that addresses everyone who is willing to notice the details and experience life from another point of view. It’s not easy seeing through a lens, distorting, magnifying or editing reality. When you manage to achieve it though, you know how your life changes!</p>
+        <p class="courtesy">Courtesy of: <a href="http://www.printl.net/" target="_blank" rel="noopener">http://www.printl.net/</a></p>
+      </div>
+      <div class="pg reveal">
+        <h3>War</h3>
+        <p>War is the use of violence and force between two or more states to resolve a matter of dispute.</p>
+        <p class="courtesy">Courtesy of: <a href="http://www.duhaime.org/" target="_blank" rel="noopener">http://www.duhaime.org/</a></p>
+        <p>But photo-graphic is the use of photographs and words to resolve the dispute, show what is real, and then help make things better.</p>
+      </div>
+      <div class="pg reveal">
+        <h3>Graphic Design</h3>
+        <p>Graphic design, also known as communication design, is the art and practice of planning and projecting ideas and experiences with visual and textual content. The form of the communication can be physical or virtual, and may include images, words, or graphic forms. The experience can take place in an instant or over a long period of time. The work can happen at any scale, from the design of a single postage stamp to a national postal signage system, or from a company’s digital avatar to the sprawling and interlinked digital and physical content of an international newspaper. It can also be for any purpose, whether commercial, educational, cultural, or political.</p>
+        <p class="courtesy"><a href="http://www.aiga.org/" target="_blank" rel="noopener">Courtesy of: http://www.aiga.org/</a></p>
+      </div>
+      <div class="pg reveal">
+        <h3>Social Work</h3>
+        <p>Social work is a helping profession; the main goal of social work is to improve a society’s overall well-being, especially for the most vulnerable populations.</p>
+        <p class="courtesy">Courtesy of: <a href="http://www.cosw.sc.edu/" target="_blank" rel="noopener">http://www.cosw.sc.edu/</a></p>
+        <p>So, social workers see photography and graphic design as a method of helping someone who needs help. They believe that those photographs and graphic designs help them and will help others, in order to help those in need.</p>
+      </div>
+    </div>
+
+    <div class="peace reveal">
+      <img src="images/peace-and-safe.png" data-fb="https://static.wixstatic.com/media/214ec6_a3252f4103b863ceeba46690fbacebda.png" data-fb2="https://static.wixstatic.com/media/214ec6_a3252f4103b863ceeba46690fbacebda.png/v1/fill/w_120,h_120,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/214ec6_a3252f4103b863ceeba46690fbacebda.png" alt="Peace and Safe icon" loading="lazy">
+      <h3 style="text-transform:uppercase;letter-spacing:.08em;color:var(--accent-dark)">Peace and Safe</h3>
+      <div class="peace-grid">
+        <div>
+          <p>Peace is when people are able to resolve their conflicts without violence and can work together to improve the quality of their lives.</p>
+          <p class="courtesy"><a href="http://www.international-alert.org/" target="_blank" rel="noopener">Courtesy of: http://www.international-alert.org/</a></p>
+        </div>
+        <div>
+          <p>Safe means secure from liability to harm, injury, danger, or risk.</p>
+          <p class="courtesy">Courtesy of: <a href="http://www.dictionary.com/" target="_blank" rel="noopener">http://www.dictionary.com/</a></p>
+        </div>
+      </div>
+      <p style="max-width:780px;margin:20px auto 0">We can make a safe and peaceful place if we start changing our minds and stop bombing innocent people. This is why we need photo-graphic.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT ME -->
+<section id="about-me">
+  <div class="wrap">
+    <h2 class="section-title reveal">About Me</h2>
+    <div class="about-grid">
+      <img class="reveal" src="images/about-me.jpg" data-fb="https://static.wixstatic.com/media/dee289_b862d6e9a4284a1c9eb24c5e3b781f25~mv2.jpg" alt="Khada Nanda Acharya" loading="lazy">
+      <div class="reveal">
+        <p>I am Khada Nanda Acharya. I am from Bhutan, which is near India in Asia, but now I am living in Essex Junction, VT. I am a visual artist. I know about hardware and software as well as coding.</p>
+        <p>Besides that, I taught myself photography, Photoshop, and video making and editing. I have used Mac, Windows, HP and other types of computers, but I don’t own any of those. I have used picture-editing, video-making and editing, and presentation software.</p>
+        <p>I am trying to become a software engineer, web designer, or graphic designer, but I like photography and filming. This is why I hope to teach everything I learn to those who can’t afford to learn. My aim is to help poor people and communities. My hope is to enjoy this and to help others feel the fun.</p>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <h2 class="section-title reveal">Contact</h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <h3>Call :</h3>
+        <p>Tel: <a href="tel:+18023554786">802-355-4786</a></p>
+        <p><a href="mailto:khadanacharya@gmail.com">khadanacharya@gmail.com</a></p>
+        <h3>Find me:</h3>
+        <p>33 Pinecrest Dr, Essex, VT 05452</p>
+      </div>
+      <form class="reveal" id="contact-form" novalidate>
+        <label for="cf-name">Name</label>
+        <input id="cf-name" name="name" type="text" autocomplete="name" required>
+        <label for="cf-email">Email</label>
+        <input id="cf-email" name="email" type="email" autocomplete="email" required>
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="message" rows="5" required></textarea>
+        <button class="btn" type="submit">Send</button>
+        <div class="ok" id="cf-ok" role="status">Success! Message received.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT PROJECT -->
+<section id="about-project">
+  <div class="wrap">
+    <h2 class="section-title reveal">About Project</h2>
+    <div class="about-project-grid">
+      <img class="reveal" src="images/about-project.jpg" data-fb="https://static.wixstatic.com/media/dee289_772885a414184dc0a03c769e8b835002~mv2.jpg" data-fb2="https://static.wixstatic.com/media/dee289_772885a414184dc0a03c769e8b835002~mv2.jpg/v1/fill/w_660,h_458,al_c,lg_1,q_80,enc_avif,quality_auto/dee289_772885a414184dc0a03c769e8b835002~mv2.jpg" alt="About the project" loading="lazy">
+      <div class="reveal">
+        <p>If you ever ask college students whether they would want to take pictures, very few would say yes. I would, not simply because I like taking pictures or enjoy spending hours and hours outside in nature, but because I could use one click to change a world full of violence, crime, and conflict. Along with this, I feel that we are all human beings trying to change the world, and most people are preparing to make this beautiful world peaceful. They use war to diminish and end violence, crime, and conflict in order to make a peaceful world, but they always fail. That is why I chose photography as the model or example to change the world.</p>
+        <p>College students today are highly prepared for war in order to make the world a peaceful place to live, but they don’t know that one click could possibly change the world into a more peaceful one. Students get thrown into a war setting by themselves, which is a major shock to them because of the major wars in different places around the world. Maybe joining a war and fighting the enemy on a peaceful mission wouldn’t be as much of a change.</p>
+        <p>Many high school students take the opportunity to join the Army, the US Navy, and the US Marines to help create a new world with peace. Instead of creating a new world with peace, they are helping enemies like the Taliban, ISIS, and Boko Haram modify the old world into a new world with more violence and more crime. We students need to join the photography community. So we should join the photography community to change the world in one click. And this is what this project is about.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <h2>CHANGE THE WORLD</h2>
+  <div class="foot-cols">
+    <div><h4>Call me:</h4><a href="tel:+18023554786">802-355-4786</a></div>
+    <div><h4>Write Me:</h4><a href="mailto:khadanacharya@gmail.com">khadanacharya@gmail.com</a></div>
+    <div><h4>Find Me:</h4>33 Pinecrest Dr, Essex, VT 05452</div>
+  </div>
+  <small>© 2016 Hope For A Change by Kart Production</small>
+</footer>
+
+<button class="top" aria-label="Back to top">↑</button>
+<div class="lightbox" id="lb" role="dialog" aria-label="Enlarged photo"><button aria-label="Close">×</button><img alt=""></div>
+
+<script>
+(function(){
+  // image fallback: use local images/ first, else original Wix CDN
+  document.querySelectorAll('img[data-fb]').forEach(function(img){
+    var chain=[img.dataset.fb,img.dataset.fb2].filter(Boolean);
+    function next(){if(chain.length)img.src=chain.shift()}
+    img.addEventListener('error',next);
+    // the local file may already have failed before this script ran
+    if(img.complete&&img.naturalWidth===0)next();
+  });
+
+  // mobile menu
+  var burger=document.querySelector('.burger'), menu=document.getElementById('menu');
+  function closeMenu(){menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}
+  burger.addEventListener('click',function(){
+    var o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);
+  });
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A')closeMenu()});
+
+  // header shadow + back to top
+  var header=document.querySelector('header'), topBtn=document.querySelector('.top');
+  function onScroll(){
+    header.classList.toggle('scrolled',window.scrollY>10);
+    topBtn.classList.toggle('show',window.scrollY>600);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+  // active nav link
+  var links=[].slice.call(menu.querySelectorAll('a[href^="#"]'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)});
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){if(s)so.observe(s)});
+
+    var ro=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(function(el){ro.observe(el)});
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+  }
+
+  // gallery slideshow
+  var g=document.getElementById('gallery'), slides=[].slice.call(g.querySelectorAll('.slide')),
+      count=g.querySelector('.count'), idx=0, timer;
+  function show(i){
+    idx=(i+slides.length)%slides.length;
+    slides.forEach(function(s,k){s.classList.toggle('on',k===idx)});
+    count.textContent=(idx+1)+'/'+slides.length;
+  }
+  function auto(){clearInterval(timer);if(!matchMedia('(prefers-reduced-motion:reduce)').matches)timer=setInterval(function(){show(idx+1)},5000)}
+  g.querySelector('.prev').addEventListener('click',function(e){e.stopPropagation();show(idx-1);auto()});
+  g.querySelector('.next').addEventListener('click',function(e){e.stopPropagation();show(idx+1);auto()});
+  g.addEventListener('mouseenter',function(){clearInterval(timer)});
+  g.addEventListener('mouseleave',auto);
+  var tx=0;
+  g.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
+  g.addEventListener('touchend',function(e){var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40){show(idx+(d<0?1:-1));auto()}});
+  auto();
+
+  // lightbox ("press to zoom")
+  var lb=document.getElementById('lb'), lbi=lb.querySelector('img');
+  slides.forEach(function(s){s.addEventListener('click',function(){
+    var im=s.querySelector('img');lbi.src=im.currentSrc||im.src;lbi.alt=im.alt;lb.classList.add('open');
+  })});
+  function closeLb(){lb.classList.remove('open')}
+  lb.addEventListener('click',closeLb);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape')closeLb();
+    if(lb.classList.contains('open'))return;
+    if(e.key==='ArrowLeft'&&g.matches(':hover'))show(idx-1);
+    if(e.key==='ArrowRight'&&g.matches(':hover'))show(idx+1);
+  });
+
+  // contact form -> opens visitor's email app addressed to the site owner
+  var f=document.getElementById('contact-form'), ok=document.getElementById('cf-ok');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.checkValidity()){f.reportValidity();return}
+    var d=new FormData(f);
+    var body='Name: '+d.get('name')+'\nEmail: '+d.get('email')+'\n\n'+d.get('message');
+    window.location.href='mailto:khadanacharya@gmail.com?subject='+encodeURIComponent('Message from '+d.get('name'))+'&body='+encodeURIComponent(body);
+    ok.classList.add('show');f.reset();
+  });
+
+  // featured posts + archive links
+  var posts=[].slice.call(document.querySelectorAll('.post[data-month]')),
+      monthLinks=[].slice.call(document.querySelectorAll('[data-month-filter]')),
+      showAll=document.getElementById('show-all');
+  function filterPosts(m){
+    posts.forEach(function(p){p.classList.toggle('hide',m!=='all'&&p.dataset.month!==m)});
+    monthLinks.forEach(function(a){a.classList.toggle('on',a.dataset.monthFilter===m&&m!=='all')});
+    showAll.hidden=(m==='all');
+  }
+  function openPost(id){
+    var el=document.getElementById(id);if(!el)return;
+    filterPosts('all');
+    var d=el.querySelector('details');if(d)d.open=true;
+    el.classList.add('in');
+    el.scrollIntoView({behavior:'smooth',block:'start'});
+    el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  }
+  document.querySelectorAll('[data-post]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();openPost(a.dataset.post);
+      try{history.replaceState(null,'','#'+a.dataset.post)}catch(x){}
+    });
+  });
+  monthLinks.forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();filterPosts(a.dataset.monthFilter);
+      posts.forEach(function(p){p.classList.add('in')});
+      document.querySelector('.posts').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  if(location.hash.indexOf('#post-')===0){setTimeout(function(){openPost(location.hash.slice(1))},300)}
+  window.addEventListener('hashchange',function(){if(location.hash.indexOf('#post-')===0)openPost(location.hash.slice(1))});
+
+  // light / dark toggle (saved in localStorage; follows system until the visitor picks one)
+  var root=document.documentElement, tbtn=document.getElementById('theme-toggle');
+  function applyTheme(t,save){
+    root.setAttribute('data-theme',t);
+    tbtn.setAttribute('aria-label',t==='dark'?'Switch to light mode':'Switch to dark mode');
+    tbtn.setAttribute('aria-pressed',t==='dark'?'true':'false');
+    if(save){try{localStorage.setItem('theme',t)}catch(e){}}
+  }
+  applyTheme(root.getAttribute('data-theme')==='dark'?'dark':'light',false);
+  tbtn.addEventListener('click',function(){
+    applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true);
+  });
+  window.addEventListener('storage',function(e){
+    if(e.key==='theme'&&(e.newValue==='light'||e.newValue==='dark'))applyTheme(e.newValue,false);
+  });
+  try{
+    matchMedia('(prefers-color-scheme:dark)').addEventListener('change',function(e){
+      var saved=null;try{saved=localStorage.getItem('theme')}catch(x){}
+      if(!saved)applyTheme(e.matches?'dark':'light',false);
+    });
+  }catch(x){}
+})();
+</script>
+</body>
+</html>
